@@ -2,150 +2,159 @@
 #include <stdlib.h>
 
 typedef struct element {
-    int broj;
-    struct element *next;
-}element;
+	int broj;
+	struct element *next;
+} element;
 
 struct element* stvori_listu() {
-    int k, n;
-    struct element *p, *glava;
+	int k, n;
+	struct element *p, *glava;
 
-    printf("Koliko zelite elemenata liste? ");
-    scanf("%d", &n);
+	printf("Koliko zelite elemenata liste? ");
+	scanf("%d", &n);
 
-    for (k = 0; k < n; k++) {
-        if (k == 0) {
-            glava = (struct element*)malloc(sizeof(struct element));
-            p = glava;
-        } else {
-            p->next = (struct element*)malloc(sizeof(struct element));
-            p = p->next;
-        }
-        printf("Unesi broj: ");
-        scanf("%d", &p->broj);
-    }
-    p->next = NULL;
-    return glava;
+	for (k = 0; k < n; k++) {
+		if (k == 0) {
+			glava = (struct element*)malloc(sizeof(struct element));
+			p = glava;
+		} else {
+			p->next = (struct element*)malloc(sizeof(struct element));
+			p = p->next;
+		}
+		printf("Unesi broj: ");
+		scanf("%d", &p->broj);
+	}
+	p->next = NULL;
+	return glava;
 }
 
-void ispis(element *glava){
-    
-    element *p=glava;
-    while(p!=NULL){
-        printf("%d",p->broj);
-        p=p->next;
-    }
+void ispis(element *glava) {
+
+	element *p=glava;
+	while(p!=NULL) {
+		printf("%d",p->broj);
+		p=p->next;
+	}
 }
 
 float aritmeticka(element *p) {
-    
-    element *pokazivac = p;
-    float suma = 0;
-    int brojac = 0;
 
-    while (pokazivac != NULL) {
-        suma += pokazivac->broj;
-        brojac++;
-        pokazivac = pokazivac->next;
-    }
+	element *pokazivac = p;
+	float suma = 0;
+	int brojac = 0;
 
-    if (brojac == 0) return 0;   // zaštita od dijeljenja s nulom
-    return suma / brojac;
-}
-void dodaj_na_kraj(element *glava){
-    element *p1=glava;
-    int broj;
-    while(p1->next!=NULL){
-        p1=p1->next;
-    }
-    element *p = (element*)malloc(sizeof(element));
-    if (p == NULL) {
-        printf("Greska pri alokaciji memorije!\n");
-        return;
-    }
-    
-    printf("unesite broj koji zelite dodati\n");
-    scanf("%d",&p->broj);
-    
-    
-    p->next=NULL;
-    p1->next=p;
+	while (pokazivac != NULL) {
+		suma += pokazivac->broj;
+		brojac++;
+		pokazivac = pokazivac->next;
+	}
+
+	if (brojac == 0) return 0;   // zaE!tita od dijeljenja s nulom
+	return suma / brojac;
 }
 
-void obrisi_kraj(element *glava){
-    
-    element *p=glava;
-    
-    element *p_predzadnji=NULL;
-    if (p == NULL) {
-        printf("Greska pri alokaciji memorije!\n");
-        return;
-    }
-    while(p->next!=NULL){
-        p_predzadnji=p;
-        p=p->next;
-        
-    }
-    
-    p_predzadnji->next=NULL;
-    free(p);
-    
-    
-   
-    void ubaci(element *glava, int x, int index){
-        
-        element *p=glava;
-        element *predzadnji=NULL;
-        element *novi=(element*)malloc(sizeof(element));
-        novi->broj=x;
-        
-        int brojac=1;
-        if(index==0){
-            novi->next=glava->next;
-            glava->next=novi;
-            
-        }else{
-            
-            while(brojac!=index){
-                predzadnji=p;
-                p=p->next;
-                brojac++;
-                
-                
-            }
-            
-            predzadnji->next=novi;
-            novi->next=p;
-        }
-        
-        
-        
-    }
-    
-    
-    
+
+void dodaj_na_kraj(element *glava) {
+	element *p1=glava;
+	int broj;
+	while(p1->next!=NULL) {
+		p1=p1->next;
+	}
+	element *p = (element*)malloc(sizeof(element));
+	if (p == NULL) {
+		printf("Greska pri alokaciji memorije!\n");
+		return;
+	}
+
+	printf("unesite broj koji zelite dodati\n");
+	scanf("%d",&p->broj);
+
+
+	p->next=NULL;
+	p1->next=p;
 }
+
+void obrisi_kraj(element *glava) {
+
+	element *p=glava;
+
+	element *p_predzadnji=NULL;
+	if (p == NULL) {
+		printf("Greska pri alokaciji memorije!\n");
+		return;
+	}
+	while(p->next!=NULL) {
+		p_predzadnji=p;
+		p=p->next;
+
+	}
+
+	p_predzadnji->next=NULL;
+	free(p);
+
+}
+
+void ubaci(element *glava, int x, int index) {
+
+	element *p=glava;
+	element *predzadnji=NULL;
+	element *novi=(element*)malloc(sizeof(element));
+	novi->broj=x;
+
+	int brojac=1;
+	if(index==1) {
+		
+		novi->next=glava->next;
+		glava->next=novi;
+		
+		
+       return;
+	} 
+
+		while(brojac!=index) {
+		    	brojac++;
+			predzadnji=p;
+			p=p->next;
+		
+
+
+		}
+
+		predzadnji->next=novi;
+		novi->next=p;
+	
+
+
+
+}
+
+
+
+
 
 int main() {
-    
-    struct element* lista = stvori_listu();
-    
-    ispis(lista);
-   printf("\n");
-   
-    printf("%f", aritmeticka(lista));
-    printf("\n");
-    
-    dodaj_na_kraj(lista);
-    
-    ispis(lista);
-    
-    obrisi_kraj(lista);
-     printf("\n");
-    ispis(lista);
-    
-    
-    
-    
-    return 0;
+
+	struct element* lista = stvori_listu();
+
+	ispis(lista);
+	printf("\n");
+
+
+
+printf("na koji index zelite ubaciti broj i koji broj\n");
+int index;
+int broj;
+printf("index\n:");
+scanf("%d",&index);
+printf("broj\n:");
+scanf("%d",&broj);
+
+ubaci(lista, broj, index);
+
+	printf("\n");
+	ispis(lista);
+	return 0;
+	
+	
+	
 }

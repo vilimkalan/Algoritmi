@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct element {
+	int broj;
+	struct element *next;
+	struct element *prev;
+} element;
+
+struct element* stvori_listu() {
+	int k, n;
+	struct element *p, *glava;
+
+	printf("Koliko zelite elemenata liste? ");
+	scanf("%d", &n); 
+
+	for (k = 0; k < n; k++) {
+		if (k == 0) {
+			glava = (struct element*)malloc(sizeof(struct element));
+			p = glava;
+			p->prev=NULL;
+		} else {
+			p->next = (struct element*)malloc(sizeof(struct element));
+			p->next->prev=p;
+			p = p->next;
+		}
+		printf("Unesi broj: ");
+		scanf("%d", &p->broj);
+	}
+	p->next = NULL;
+	return glava;
+}
+
+void ispis(element *glava) {
+
+	element *p=glava;
+	while(p!=NULL) {
+		printf("%d",p->broj);
+		p=p->next;
+	}
+}
+
+element* dodaj_na_pocetak(element *glava, int x){
+    
+        if(glava!=NULL){
+            element *novi=(element*)malloc(sizeof(element));
+            novi->broj=x;
+            novi->prev=NULL;
+            novi->next=glava;
+            return novi;
+            
+        }
+    
+}
+
+
+
+void dodaj_na_kraj(element *glava, int x){
+    
+    element *p=glava;
+    element *novi=(element*)malloc(sizeof(element));
+    
+    while(p->next!=NULL){
+        p=p->next;
+    }
+   novi->next=NULL;
+   novi->broj=x;
+   novi->prev=p;
+   p->next=novi;
+   
+}
+
+
+void dodaj_nakon(element *glava, int index,int x){
+    int brojac =1;
+     element *p=glava;
+     
+    if(index>1){
+       
+        while(p->next!=NULL){
+            
+            if(brojac==index){
+                element *novi=(element*)malloc(sizeof(element));
+                novi->broj=x;
+                novi->next=p->next;
+                novi->prev=p;
+                p->next=novi;
+                break;
+                
+                
+            }else{
+                p=p->next;
+                brojac++;
+            }
+        }
+        
+    }
+    
+    
+    
+    
+}
+
+int main() {
+
+	element* lista = stvori_listu();
+
+	ispis(lista);
+	
+	
+	printf("\n");
+	dodaj_nakon(lista,3,8);
+	ispis(lista);
+}

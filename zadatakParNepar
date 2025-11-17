@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct element {
+	int broj;
+	struct element *next;
+} element;
+
+element* dodajPocetak(element* glava,int x) {
+	element *novi = (element*)malloc(sizeof(element));
+	novi->broj=x;
+	novi->next=glava;
+
+	return novi;
+
+
+}
+
+element* dodajKraj(element* glava, int x) {
+
+	element *novi = (element*)malloc(sizeof(element));
+	novi->next=NULL;
+	novi->broj=x;
+	if (glava == NULL) return novi;
+	element* p=glava;
+ 
+ 
+	while(p->next!=NULL) {
+		p=p->next;
+	}
+	p->next=novi;
+
+	return glava;
+
+
+}
+
+int main()
+{
+	element* glava=NULL;
+	int n;
+	int broj;
+
+	scanf("%d",&n);
+
+	for(int i=0; i<n; i++) {
+	    printf("unesite broj\n");
+		scanf("%d",&broj);
+		
+		if(broj==0) continue;
+		if(broj%2==0) {
+			glava=dodajPocetak(glava,broj);
+		} else {
+			glava=dodajKraj(glava,broj);
+		}
+	}
+	if (glava == NULL) {
+		printf("Lista je prazna\n");
+		return 0;
+	}
+element *p=glava;
+	int suma=glava->broj;
+
+	while(glava->next!=NULL) {
+
+		glava=glava->next;
+
+	}
+	suma+=glava->broj;
+
+
+printf("%d\n",suma);
+
+
+	
+	while(p!=NULL) {
+		printf("%d",p->broj);
+		p=p->next;
+	}
+
+
+
+
+
+	return 0;
+}

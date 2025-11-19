@@ -1,0 +1,82 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+typedef struct element {
+	int broj;
+	struct element *next;
+} element;
+
+struct element* stvori_listu() {
+	int k, n;
+	struct element *p, *glava;
+
+	printf("Koliko zelite elemenata liste? ");
+	scanf("%d", &n);
+
+	for (k = 0; k < n; k++) {
+		if (k == 0) {
+			glava = (struct element*)malloc(sizeof(struct element));
+			p = glava;
+		} else {
+			p->next = (struct element*)malloc(sizeof(struct element));
+			p = p->next;
+		}
+		printf("Unesi broj: ");
+		scanf("%d", &p->broj);
+	}
+	p->next = NULL;
+	return glava;
+}
+
+void ispis(element *glava) {
+
+	element *p=glava;
+	while(p!=NULL) {
+		printf("%d  ",p->broj);
+		p=p->next;
+	}
+}
+
+element* suma(element* glava){
+    
+   
+    
+    element* p=glava;
+    
+    while(p != NULL && p->next != NULL){
+        
+        int suma=p->broj+p->next->broj;
+        element* novi=(element*)malloc(sizeof(element));
+        
+        
+        novi->broj=suma;
+        
+        
+        novi->next=p->next->next;
+        p->next->next=novi;
+       
+        
+        p=novi->next;
+        
+    }
+    
+    return glava;
+   
+    
+}
+
+
+int main()
+{
+    
+    element* lista= stvori_listu();
+    
+    ispis(lista);
+    
+    lista=suma(lista);
+    printf("\nLista nakon umetanja suma:\n");
+    ispis(lista);
+
+    return 0;
+}
